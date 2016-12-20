@@ -1,0 +1,17 @@
+<h3 (click)="change()">Blocks</h3>
+<div class="resource" *ngIf="show">
+	<p>Los bloques son un conjunto de datos, con su correspondiente hash.</p>
+	<p>En primer lugar tenemos un número de bloque, un número <strong>nonce</strong> del que hablaremos más tarde y finalmente los datos.</p>
+	<p>Lo que hace un bloque distinto a lo que hemos visto antes es que un bloque puede ser válido o no. Un bloque es válido si su hash cumple cierta condición. En este caso, vamos a pedir que un bloque sea válido si su hash comienza por 3 ceros.</p>
+	<p>Como puedes comprobar, la probabilidad de que eso ocurra es mínima. Para ajustar el hash a la condición impuesta se usa el número <strong>nonce</strong>. En un proceso denominado <strong>minado</strong> se probarán valores de nonce hasta que el hash cumpla la condición impuesta, solo así el bloque es válido.</p>
+	<p>Observa que si cambias el valor de los datos es necesario volver a minar. En este ejemplo el minado es rápido, pero puede hacerse más lento eligiendo otras condiciones.</p>
+	<div style="width: 100%;">
+		<label for="num" style="width: 25%;">Número de bloque</label><input style="width: 75%;" type="text" disabled value="1" id="num">
+		<label style="width: 25%;" for="nonce">Nonce</label><input (input)="inputChange()" style="width: 75%;" type="text" value="0" id="nonce" [(ngModel)]="nonce">
+		<textarea (input)="inputChange()" [(ngModel)]="data" style="width: 100%;"></textarea>
+		<input type="text" disabled [(ngModel)]="hash256">
+		<button (click)="mine()">Minar</button>
+		<p *ngIf="valid" style="color: green;">El bloque es válido</p>
+		<p *ngIf="!valid" style="color: red;">El bloque es inválido</p>
+	</div>
+</div>

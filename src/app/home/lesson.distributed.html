@@ -1,0 +1,108 @@
+<h3 (click)="change()">Blockchain distribuida</h3>
+<div class="resource" *ngIf="show">
+	<p>Ya hemos visto que en una Blockchain la facilidad de modificar la información contenida en los bloques se va haciendo cada vez más difícil. No obstante, esto no es suficiente para aplicaciones más universales. En concreto, Bitcoin y Ethereum usan blockchains distribuidas.</p>
+	<p>En una blockchain distribuida no basta con que la cadena sea válida (todos sus bloques sean válidos), sino que además debe de haber un consenso</p>
+	<p>Imagina una blockchain distribuida con 3 nodos. El Nodo A decide modificar un bloque, realiza todos los minados pertinentes y su cadena ahora es válida. ¿Cómo elije el sistema que cadena es válida y cuál no? Fácil. Si una cadena modifica el contenido de un bloque, aunque realice todos sus minados los hashes resultantes van a ser distintos. Realmente, solo comprobando el hash del último bloque es posible saber si una cadena ha sufrido una modificación que el resto no tiene.</p>
+	<p>Esa cadena con un último bloque de hash distinto al resto se quedará huérfana y el resto de bloques que lleguen a la red se pondrán sobre las cadenas que tienen consenso entre sí. En redes como Bitcoin o Ethereum el consenso se logra con el 51% de los nodos.</p>
+	<hr>
+	<p>Aquí tienes una mini-red con 3 nodos. Primero intenta que todos tengan el mismo contenido. Después intenta modificar una cadena y observa lo que ocurre.</p>
+	<h4>Nodo A</h4>
+	<h5>Bloque 1</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeA()" type="text" [(ngModel)]="nonceA[0]" style="width: 75%;">
+		<textarea (input)="inputChangeA()" [(ngModel)]="dataA[0]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input type="text" disabled value="0" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" [(ngModel)]="hash256A[0]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validA[0]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validA[0]">Bloque no válido</p>
+		<button (click)="mineA(0)">Minar</button>
+	</div>
+	<h5>Bloque 2</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeA()" type="text" [(ngModel)]="nonceA[1]" style="width: 75%;">
+		<textarea (input)="inputChangeA()" [(ngModel)]="dataA[1]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input type="text" disabled [(ngModel)]="hash256A[0]" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" (input)="inputChangeA()" [(ngModel)]="hash256A[1]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validA[1]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validA[1]">Bloque no válido</p>
+		<button (click)="mineA(1)">Minar</button>
+	</div>
+	<h5>Bloque 3</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeA()" type="text" [(ngModel)]="nonceA[2]" style="width: 75%;">
+		<textarea (input)="inputChangeA()" [(ngModel)]="dataA[2]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input (input)="inputChangeA()" type="text" disabled [(ngModel)]="hash256A[1]" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" [(ngModel)]="hash256A[2]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validA[2]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validA[2]">Bloque no válido</p>
+		<button (click)="mineA(2)">Minar</button>
+	</div>
+	<h4>Nodo B</h4>
+	<h5>Bloque 1</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeB()" type="text" [(ngModel)]="nonceB[0]" style="width: 75%;">
+		<textarea (input)="inputChangeB()" [(ngModel)]="dataB[0]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input type="text" disabled value="0" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" [(ngModel)]="hash256B[0]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validB[0]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validB[0]">Bloque no válido</p>
+		<button (click)="mineB(0)">Minar</button>
+	</div>
+	<h5>Bloque 2</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeB()" type="text" [(ngModel)]="nonceB[1]" style="width: 75%;">
+		<textarea (input)="inputChangeB()" [(ngModel)]="dataB[1]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input type="text" disabled [(ngModel)]="hash256B[0]" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" (input)="inputChangeB()" [(ngModel)]="hash256B[1]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validB[1]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validB[1]">Bloque no válido</p>
+		<button (click)="mineB(1)">Minar</button>
+	</div>
+	<h5>Bloque 3</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeB()" type="text" [(ngModel)]="nonceB[2]" style="width: 75%;">
+		<textarea (input)="inputChangeB()" [(ngModel)]="dataB[2]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input (input)="inputChangeB()" type="text" disabled [(ngModel)]="hash256B[1]" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" [(ngModel)]="hash256B[2]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validB[2]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validB[2]">Bloque no válido</p>
+		<button (click)="mineB(2)">Minar</button>
+	</div>
+	<h4>Nodo C</h4>
+	<h5>Bloque 1</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeC()" type="text" [(ngModel)]="nonceC[0]" style="width: 75%;">
+		<textarea (input)="inputChangeC()" [(ngModel)]="dataC[0]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input type="text" disabled value="0" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" [(ngModel)]="hash256C[0]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validC[0]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validC[0]">Bloque no válido</p>
+		<button (click)="mineC(0)">Minar</button>
+	</div>
+	<h5>Bloque 2</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeC()" type="text" [(ngModel)]="nonceC[1]" style="width: 75%;">
+		<textarea (input)="inputChangeC()" [(ngModel)]="dataC[1]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input type="text" disabled [(ngModel)]="hash256C[0]" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" (input)="inputChangeC()" [(ngModel)]="hash256C[1]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validC[1]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validC[1]">Bloque no válido</p>
+		<button (click)="mineC(1)">Minar</button>
+	</div>
+	<h5>Bloque 3</h5>
+	<div style="width: 100%;">
+		<label style="width: 25%;">Nonce</label><input (input)="inputChangeC()" type="text" [(ngModel)]="nonceC[2]" style="width: 75%;">
+		<textarea (input)="inputChangeC()" [(ngModel)]="dataC[2]" style="width: 100%;"></textarea>
+		<label style="width: 25%;">Hash bloque anterior</label><input (input)="inputChangeC()" type="text" disabled [(ngModel)]="hash256C[1]" style="width: 75%;">
+		<label style="width: 25%;">Hash</label><input disabled type="text" [(ngModel)]="hash256C[2]" style="width: 75%;">
+		<p style="color: green;" *ngIf="validC[2]">Bloque válido</p>
+		<p style="color: red;" *ngIf="!validC[2]">Bloque no válido</p>
+		<button (click)="mineC(2)">Minar</button>
+	</div>
+	<h4>Resultado</h4>
+	<p *ngIf="hash256C[2] === hash256B[2] && hash256B[2] === hash256A[2]" style="color: green;">Las blockchains contienen exactamente el mismo contenido. Todas son válidas</p> 
+	<p *ngIf="(hash256C[2] == hash256B[2] && hash256B[2] != hash256A[2])" style="color: orange;">El nodo A ha intentado manipular los contenidos del blockchain</p>
+	<p *ngIf="(hash256C[2] == hash256A[2] && hash256B[2] != hash256A[2])" style="color: orange;">El nodo B ha intentado manipular los contenidos del blockchain</p>
+	<p *ngIf="(hash256C[2] != hash256B[2] && hash256B[2] == hash256A[2])" style="color: orange;">El nodo C ha intentado manipular los contenidos del blockchain</p>
+	<p *ngIf="(hash256C[2] != hash256B[2] && hash256B[2] != hash256A[2] && hash256C[2] != hash256A[2])" style="color: red;">No hay consenso mayoritario sobre que versión de la blockchain es la correcta</p>
+</div>
