@@ -1,4 +1,4 @@
-import {Component, Directive, ElementRef} from '@angular/core';
+import {Component, Directive, ElementRef, AfterViewInit} from '@angular/core';
 var sha256 = require('js-sha256');
 
 var mineWorker = `
@@ -223,5 +223,13 @@ export class LessonDistributed extends Lesson{
     templateUrl: './app/home/home.component.html'
 })
 
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit{
+	ngAfterViewInit(){
+		try{
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		}catch(e){
+		
+		}
+	}
 }

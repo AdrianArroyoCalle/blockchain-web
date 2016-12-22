@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     htmlMinifier = require('html-minifier'),
     inlineNg2Template = require('gulp-inline-ng2-template'),
+    ghPages = require('gulp-gh-pages'),
     plugins = require('gulp-load-plugins')({
         lazy: true
     });
@@ -152,6 +153,11 @@ gulp.task('connect:dev', function() {
         livereload: true,
         fallback: paths.dev + '/index.html'
     });
+});
+
+gulp.task("deploy",function(){
+	return gulp.src("./dist/prod/**/*")
+		.pipe(ghPages());
 });
 
 gulp.task("watch", function () {
