@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+ - "7.10"
+ - "6.10"
+ - "4.2"
+install:
+ - npm install
+before_script:
+ - npm install -g gulp
+script: gulp build:prod
+
