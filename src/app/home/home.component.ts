@@ -1,5 +1,5 @@
 import {Component, Directive, ElementRef, AfterViewInit} from '@angular/core';
-var sha256 = require('js-sha256');
+import { sha256 } from 'js-sha256';
 
 var mineWorker = `
 self.onmessage = function(oEvent){
@@ -29,7 +29,7 @@ class Lesson {
 
 @Component({
 	selector: "lesson-tokens",
-	templateUrl: "./app/home/lesson.tokens.html"
+	templateUrl: "lesson.tokens.html"
 })
 
 export class LessonTokens extends Lesson{
@@ -38,7 +38,7 @@ export class LessonTokens extends Lesson{
 
 @Component({
 	selector: "lesson-thanks",
-	templateUrl: "./app/home/lesson.thanks.html"
+	templateUrl: "lesson.thanks.html"
 })
 
 export class LessonThanks extends Lesson{
@@ -47,7 +47,7 @@ export class LessonThanks extends Lesson{
 
 @Component({
 	selector: "lesson-hash",
-	templateUrl: "./app/home/lesson.hash.html"
+	templateUrl: "lesson.hash.html"
 })
 
 export class LessonHash extends Lesson{
@@ -60,7 +60,7 @@ export class LessonHash extends Lesson{
 
 @Component({
 	selector: "lesson-block",
-	templateUrl: "./app/home/lesson.block.html"
+	templateUrl: "lesson.block.html"
 })
 
 export class LessonBlock extends Lesson{
@@ -87,7 +87,7 @@ export class LessonBlock extends Lesson{
 
 @Component({
 	selector: "lesson-blockchain",
-	templateUrl: "./app/home/lesson.blockchain.html"
+	templateUrl: "lesson.blockchain.html"
 })
 export class LessonBlockchain extends Lesson{
 	nonce: string[];
@@ -125,7 +125,7 @@ export class LessonBlockchain extends Lesson{
 
 @Component({
 	selector: "lesson-distributed",
-	templateUrl: "./app/home/lesson.distributed.html"
+	templateUrl: "lesson.distributed.html"
 })
 export class LessonDistributed extends Lesson{
 	nonceA: string[];
@@ -220,14 +220,14 @@ export class LessonDistributed extends Lesson{
 
 @Component({
     selector: 'home',
-    templateUrl: './app/home/home.component.html'
+    templateUrl: 'home.component.html'
 })
 
 export class HomeComponent implements AfterViewInit{
 	ngAfterViewInit(){
 		try{
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			(adsbygoogle = window.adsbygoogle || []).push({});
+			/*(adsbygoogle = window.adsbygoogle || []).push({});
+			(adsbygoogle = window.adsbygoogle || []).push({});*/
 		}catch(e){
 		
 		}
