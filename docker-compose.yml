@@ -1,0 +1,7 @@
+version: "3.6"
+
+services:
+ angular:
+  build: .
+  volumes:
+  - ./build:/opt/blockchain-web/dist
